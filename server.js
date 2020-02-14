@@ -18,7 +18,7 @@ db.on('error', function(error) {
 })
 
 require(".//routes/html-routes")(app)
-// require(".//routes/api-routes.js")(app);
+require(".//routes/api-routes.js")(app);
 
 app.listen(3000, function() { 
     console.log('app running on port 3000')
