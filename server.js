@@ -25,8 +25,6 @@ app.listen(3000, function() {
 })
 
 
-
-
 //SCRAPPING: 
 var cheerio = require("cheerio"); 
 var axios = require("axios"); 

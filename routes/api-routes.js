@@ -1,4 +1,7 @@
-var serverpage = require('../server'); 
+// var serverpage = require('../server'); 
+var mongojs = require('mongojs');
+var databaseUrl = 'zoo'; 
+var db = mongojs(databaseUrl); 
 
 module.exports = function(app) { 
     app.get('/all', function(req, res) { 

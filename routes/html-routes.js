@@ -1,8 +1,6 @@
 var path = require('path'); 
 
 module.exports = function(app) { 
-
-    // console.log(__dirname)
     
     app.get('/home', function(req, res) { 
         res.sendFile(path.join(__dirname, '../../mongonews-/view/index.html'));
@@ -11,4 +9,6 @@ module.exports = function(app) {
     app.get('/saved', function(req, res) {
         res.sendFile(path.join(__dirname, '../../mongonews-/view/saved.html'))
     })
+
+    
 }
