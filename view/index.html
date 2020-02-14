@@ -17,20 +17,27 @@
         <div class="container">
             <div class="row">
                 <div class="jumbotron">
-                    <h1 class="display-4">Mongo Scraper</h1>
+                    <h1 class="display-4">News Scraper</h1>
                     <p class="lead">Scrape articles from The Guardian</p>
                     <hr class="my-4">
-                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Scrape new articles</a>
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Home</a>
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Saved articles</a>               
+                    <a id='scrape' class="btn btn-primary btn-lg" href="#" role="button">Scrape new articles</a>
+                    <a id='home' class="btn btn-primary btn-lg" href="#" role="button">Home</a>
+                    <a id='save' class="btn btn-primary btn-lg" href="#" role="button">Saved articles</a>               
+                    <a id='clear' class="btn btn-primary btn-lg" href="#" role="button">Clear articles</a>               
+
                 </div>
             </div>
 
             <div class="row">
                 <div class="jumbotron">
                     <h1 class="lead">No new articles yet...</h1>
-                    <p class="addArticles"></p>
+                    <div class="article-box">
+                        <div id="addArticles">
+                            <button id='save-article'></button>     
+                        </div>
+                    </div>
+
+
                                    
                 </div>
             </div>

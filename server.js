@@ -1,10 +1,33 @@
 // var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 // mongoose.connect(MONGODB_URI);
+//mongodb:
+
+var express = require('express'); 
+var mongojs = require('mongojs');
+
+//initializing express: 
+var app = express(); 
+
+//database config: 
+var databaseUrl = 'zoo'; 
+var db = mongojs(databaseUrl); 
+
+db.on('error', function(error) { 
+    console.log('DB error: ', error); 
+})
+
+require(".//routes/html-routes")(app)
+// require(".//routes/api-routes.js")(app);
+
+app.listen(3000, function() { 
+    console.log('app running on port 3000')
+})
+
+
 
 
 //SCRAPPING: 
-
 var cheerio = require("cheerio"); 
 var axios = require("axios"); 
 

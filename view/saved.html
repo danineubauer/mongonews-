@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Scrape the Guardian</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="css.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="jumbotron">
+                    <h1 class="display-4">News Scraper</h1>
+                    <p class="lead">Your saved articles from The Guardian</p>
+                    <hr class="my-4">
+                    <a id='scrape' class="btn btn-primary btn-lg" href="#" role="button">Scrape new articles</a>
+                    <a id='home' class="btn btn-primary btn-lg" href="#" role="button">Home</a>
+                    <a id='save' class="btn btn-primary btn-lg" href="#" role="button">Saved articles</a>               
+                    <a id='clear' class="btn btn-primary btn-lg" href="#" role="button">Clear articles</a>               
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="jumbotron">
+                    <h1 class="lead">No new articles yet...</h1>
+                    <div class="article-box">
+                        <div id="addArticles">
+                            <button id='delete'></button>     
+                            <button id='article-notes'></button>     
+
+                        </div>
+                    </div>
+
+
+                                   
+                </div>
+            </div>
+
+        </div>
+        
+        <script src="../server.js" async defer></script>
+    </body>
+</html>
