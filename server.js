@@ -19,18 +19,18 @@ axios.get("https://www.theguardian.com/us")
         $('.fc-item__content').each(function(i, element) { 
             
             //headline:
-            var title = $(element).text(); 
+            var title = $(element).text().replace(/\n/g, ''); 
             
             //summary: 
-            var summary = $(element).parent().text();
-
+            var summary = $(element).parent().text().replace(/\n/g, '');
+            console.log(summary)
             //url:
             var link = $(element).children().children().children().attr("href"); 
 
             //photo:
             results.push({ 
-                title: title, 
-                summary: summaryedit, 
+                title: title.replace(/\n/g, ''), 
+                summary: summary, 
                 link: link
             })
         })
