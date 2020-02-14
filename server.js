@@ -3,7 +3,7 @@
 // mongoose.connect(MONGODB_URI);
 
 
-//scrapping the news: 
+//SCRAPPING: 
 
 var cheerio = require("cheerio"); 
 var axios = require("axios"); 
@@ -23,7 +23,6 @@ axios.get("https://www.theguardian.com/us")
             
             //summary: 
             var summary = $(element).parent().text().replace(/\n/g, '');
-            console.log(summary)
             //url:
             var link = $(element).children().children().children().attr("href"); 
 
