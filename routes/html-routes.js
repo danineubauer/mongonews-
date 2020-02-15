@@ -10,5 +10,7 @@ module.exports = function(app) {
         res.sendFile(path.join(__dirname, '../../mongonews-/view/saved.html'))
     })
 
-    
+    app.get('/', function(req, res) { 
+        res.sendFile(path.join(__dirname, '../../mongonews-/view/index.html'));
+    })
 }
