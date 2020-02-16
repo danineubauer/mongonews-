@@ -20,9 +20,9 @@
                     <h1 class="display-4">News Scraper</h1>
                     <p class="lead">Scrape articles from The Guardian</p>
                     <hr class="my-4">
-                    <a id='scrape' class="btn btn-primary btn-lg" href="#" role="button">Scrape new articles</a>
-                    <a id='home' class="btn btn-primary btn-lg" href="#" role="button">Home</a>
-                    <a id='save' class="btn btn-primary btn-lg" href="#" role="button">Saved articles</a>               
+                    <a id='scrape' class="btn btn-primary btn-lg scrape" href="#" role="button">Scrape new articles</a>
+                    <a id='home' class="btn btn-primary btn-lg" href="/home" role="button">Home</a>
+                    <a id='save' class="btn btn-primary btn-lg" href="/saved" role="button">Saved articles</a>               
                     <a id='clear' class="btn btn-primary btn-lg" href="#" role="button">Clear articles</a>               
 
                 </div>
@@ -30,11 +30,26 @@
 
             <div class="row">
                 <div class="jumbotron">
-                    <h1 class="lead">No new articles yet...</h1>
+                    <!-- Where the articles go -->
                     <div class="article-box">
-                        <div id="addArticles">
-                            <button id='save-article'></button>     
-                        </div>
+                        
+                        <h2 class="lead">No new articles to diplay. Click scrape above...</h1>
+
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <h3>What would you like to do?</h3>
+                                </div>
+                                
+                                <div class="card-body text-center">
+                                    <div>
+                                        <a class="scrape">Scrape articles</h3>
+                                    </div>
+                                    <div>
+                                        <a href="/saved">Go to saved articles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        
                     </div>
 
 

@@ -10,7 +10,7 @@ var mongojs = require('mongojs');
 var app = express(); 
 
 //database config: 
-var databaseUrl = 'zoo'; 
+var databaseUrl = 'articlesdb'; 
 var db = mongojs(databaseUrl); 
 
 db.on('error', function(error) { 
@@ -57,7 +57,10 @@ axios.get("https://www.theguardian.com/us")
         console.log(results)
     })
 
-
+//add articles to db: 
+app.get("/save"), function(req, res) { 
+    db.acTable.insert({"title": title} )
+}
 
 
 // var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
