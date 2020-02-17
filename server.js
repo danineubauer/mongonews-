@@ -29,38 +29,68 @@ app.listen(3000, function() {
 var cheerio = require("cheerio"); 
 var axios = require("axios"); 
 
-//requesting news HTML: 
-axios.get("https://www.theguardian.com/us")
-    .then(function(response) { 
-       
-        var $ = cheerio.load(response.data); 
-
-        var results = []; 
-
-        $('.fc-item__content').each(function(i, element) { 
-            
-            //headline:
-            var title = $(element).text().replace(/\n/g, ''); 
-            
-            //summary: 
-            var summary = $(element).parent().text().replace(/\n/g, '');
-            //url:
-            var link = $(element).children().children().children().attr("href"); 
-
-            //photo:
-            results.push({ 
-                title: title.replace(/\n/g, ''), 
-                summary: summary, 
-                link: link
-            })
-        })
-        console.log(results)
-    })
 
 //add articles to db: 
-app.get("/save"), function(req, res) { 
-    db.acTable.insert({"title": title} )
-}
+app.get("/scrape", function(req, res) { 
+    
+    //scrape from the guardian: 
+    axios.get("https://www.theguardian.com/us")
+        .then(function(response) { 
+           
+            var $ = cheerio.load(response.data); 
+
+            var results = []; 
+    
+            $('.fc-item__content').each(function(i, element) { 
+                
+                //headline:
+                var title = $(element).text().replace(/\n/g, ''); 
+                
+                //summary: 
+                var summary = $(element).parent().text().replace(/\n/g, '');
+                //url:
+                var link = $(element).children().children().children().attr("href"); 
+    
+                //photo:
+                // results.push({ 
+                //     title: title.replace(/\n/g, ''), 
+                //     summary: summary, 
+                //     link: link
+                // })
+                if (title && summary && link) { 
+                    console.log("scraping articles"); 
+
+                    db.articles.insert({
+                        title: title,
+                        summary: summary, 
+                        link: link
+
+                    }, 
+                    function(err, inserted) { 
+                        if (err) { 
+                            console.log(err); 
+                        }
+                        else { 
+                            console.log(inserted);
+                        }
+                    });
+                };
+            });
+        });
+    console.log('scrape complete')
+});
+
+
+//                 };
+//             console.log(results)
+//     }); 
+// })
+
+    //scrape from the guardian: 
+
+
+//     db.acTable.insert({"title": title} )
+// }
 
 
 // var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
