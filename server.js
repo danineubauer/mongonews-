@@ -9,6 +9,7 @@ var mongojs = require('mongojs');
 //initializing express: 
 var app = express(); 
 
+app.use(express.static("public"));
 //database config: 
 var databaseUrl = 'articlesdb'; 
 var db = mongojs(databaseUrl); 
@@ -30,7 +31,7 @@ var cheerio = require("cheerio");
 var axios = require("axios"); 
 
 
-//add articles to db: 
+//Scrape articles to db: 
 app.get("/scrape", function(req, res) { 
     
     //scrape from the guardian: 
@@ -43,6 +44,8 @@ app.get("/scrape", function(req, res) {
     
             $('.fc-item__content').each(function(i, element) { 
                 
+                
+                
                 //headline:
                 var title = $(element).text().replace(/\n/g, ''); 
                 
@@ -50,16 +53,9 @@ app.get("/scrape", function(req, res) {
                 var summary = $(element).parent().text().replace(/\n/g, '');
                 //url:
                 var link = $(element).children().children().children().attr("href"); 
-    
-                //photo:
-                // results.push({ 
-                //     title: title.replace(/\n/g, ''), 
-                //     summary: summary, 
-                //     link: link
-                // })
+                
                 if (title && summary && link) { 
-                    console.log("scraping articles"); 
-
+                                        
                     db.articles.insert({
                         title: title,
                         summary: summary, 
@@ -75,46 +71,11 @@ app.get("/scrape", function(req, res) {
                         }
                     });
                 };
+            
             });
         });
     console.log('scrape complete')
+    res.send('Articles scraped')
 });
 
 
-//                 };
-//             console.log(results)
-//     }); 
-// })
-
-    //scrape from the guardian: 
-
-
-//     db.acTable.insert({"title": title} )
-// }
-
-
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
-// mongoose.connect(MONGODB_URI);
-
-
-//pseudo coding: 
-
-//create html pages
-//connect server to the pages 
-    //home 
-    //saved articles 
-//news api 
-    //headline 
-    //summary 
-    //url
-//add buttons: 
-    //home: 
-        //scrape articles 
-        //save article 
-        //clear articles
-    //saved: 
-        //clear articles 
-        //delete from saved 
-        //article notes 
-            //should open a tab to add notes 
