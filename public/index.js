@@ -6,22 +6,41 @@ function displayResults(articles) {
         // console.log(article.summary)
         // console.log(article.link)
 
-        var div = $("<div>").append(
-            $("<a href='" + article.link + "'>").text(article.title), 
-            $("<div>").text(article.summary),
+        var card = $("<div class='card'>");
+        var cardHead = $("<div class='card-header'>").append(
+            $("<h3>").append(
+                $("<a class='article-link' target='_blank' rel='noopener noreferrer'>")
+                    .attr("href", article.link)
+                    .text(article.title),
+                $("<a class='btn btn-success save'>Save Article</a>")
+            )
         )
-        $('#addArticleInfoHere').append(div)
+        var cardBody = $("<div class='card-body'>").text(article.summary);
+
+        card.append(cardHead, cardBody); 
+        
+        card.data("_id", article._id); 
+
+        // return card;
+
+        $('#addArticleInfoHere').append(card)
+
+        // var div = $("<div>").append(
+        //     $("<a href='" + article.link + "'>").text(article.title), 
+        //     $("<div>").text(article.summary),
+        // )
     })
 }
 
 $(".scrape").on("click", function() { 
     
     console.log('scraping data')
-    
     $.getJSON('/all', function(data) {
-        displayResults(data) 
+            displayResults(data)
+ 
+        })
     });
-});
+
 
 
     // $.getJSON("/scrape", function(data) { 
