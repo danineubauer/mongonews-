@@ -1,4 +1,6 @@
 
+var articleInfo = $('#addArticleInfoHere')
+
 function displayResults(articles) { 
     console.log('displaying data')
     articles.forEach (function(article) { 
@@ -27,10 +29,6 @@ function displayResults(articles) {
 
         $('#addArticleInfoHere').append(card)
 
-        // var div = $("<div>").append(
-        //     $("<a href='" + article.link + "'>").text(article.title), 
-        //     $("<div>").text(article.summary),
-        // )
     })
 }
 
@@ -43,12 +41,10 @@ $(".scrape").on("click", function() {
         })
     });
 
-
-
-    // $.getJSON("/scrape", function(data) { 
-    //     displayResults(data)
-    //     console.log('displays data')
-    // });
+$('#clear').on("click", function() {
+    console.log('clearing data') 
+    $('#addArticleInfoHere').text('')
+})
 
 
 
