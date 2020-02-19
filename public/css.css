@@ -39,3 +39,28 @@ h5:hover {
     color: red;
     cursor: pointer;
 }
+
+#addArticleInfoHere { 
+    font-size: 40px;
+}
+
+.article-link { 
+    font-size: 20px;
+    text-align: center;
+}
+
+div { 
+    text-align: center;
+}
+#saveBtn { 
+    text-align: center;
+    margin-top: 10px;
+    background-color: darkslategray;
+    border-color: darkgrey;
+    color: lightgrey 
+}
+
+#saveBtn:hover { 
+    background-color: blue;
+}
+

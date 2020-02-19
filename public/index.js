@@ -12,10 +12,12 @@ function displayResults(articles) {
                 $("<a class='article-link' target='_blank' rel='noopener noreferrer'>")
                     .attr("href", article.link)
                     .text(article.title),
-                $("<a class='btn btn-success save'>Save Article</a>")
+                $("<div><a id='saveBtn' class='btn btn-success save '>Save Article</a></div>")
             )
         )
-        var cardBody = $("<div class='card-body'>").text(article.summary);
+        var cardBody = $("")
+
+        //$("<div class='card-body'>").text(article.summary);
 
         card.append(cardHead, cardBody); 
         
