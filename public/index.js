@@ -1,4 +1,7 @@
 
+
+
+
 var articleInfo = $('#addArticleInfoHere')
 
 function displayResults(articles) { 
@@ -33,22 +36,68 @@ function displayResults(articles) {
 }
 
 $(".scrape").on("click", function() { 
-    
+    event.preventDefault();
     console.log('scraping data')
     $.getJSON('/all', function(data) {
             displayResults(data)
  
-        })
-    });
+    })
+});
 
 $('#clear').on("click", function() {
+    event.preventDefault();
     console.log('clearing data') 
     $('#addArticleInfoHere').text('')
 })
 
+$('#homeOnHome').on("click", function() {
+    event.preventDefault();
+    console.log('You are on home') 
+})
+
+$('#saveOnHome').on("click", function() {
+    console.log('going to saved articles') 
+})
+
+$('#homeOnSave').on("click", function() {
+    console.log('going home') 
+})
+
+$('#saveOnSave').on("click", function() {
+    event.preventDefault(); 
+    console.log('you are on your saved articles page') 
+})
 
 
+$('#saveBtn').on("click", function() { 
+    console.log('saving article')
+    // articleToSave() 
+})
 
+//SAVE ARTICLE!!! 
+function articleToSave() { 
+    var saveThisArticle = $(this)
+        .parents('.card')
+        .data();
+
+    $(this)
+        .parents(".card")
+        .remove();
+
+    articleToSave.saved = true;
+
+    console.log(articleToSave)
+    $.ajax({
+        method: "PUT", 
+        url: '/api/headlines/' + articleToSave._id,
+        data: articleToSave
+    }).then(function(data) { 
+        console.log(data)
+        if(data) { 
+            location.reload(); 
+        }
+    })
+}
 
 
 
