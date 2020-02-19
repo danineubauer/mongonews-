@@ -1,0 +1,32 @@
+
+body { 
+    background: url(news1.jpg) no-repeat center center fixed;
+    -webkit-background-size: 
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family:'Playfair Display', serif;
+    font-size: 30px;
+    text-shadow: 2px;
+    margin-left: 0;
+}
+
+.jumbotron { 
+    height: 60%; 
+    width: 50%;
+    align-content: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding: 30px;
+}
+
+.btn {
+    align-content: center; 
+    font-size: 15px;
+    height: 40px;
+    width: 150px;
+}
+
+.top { 
+    margin-top: 50px;
+}
