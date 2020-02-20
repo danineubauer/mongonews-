@@ -6,6 +6,11 @@
 var express = require('express'); 
 var mongojs = require('mongojs');
 
+
+//connecting mongodb:
+// mongodb+srv://<username>:danineubauer@cluster0-0yfrd.mongodb.net/test?retryWrites=true&w=majority 
+
+
 //initializing express: 
 var app = express(); 
 
