@@ -10,15 +10,24 @@ function displayResults(articles) {
         // console.log(article.title)
         // console.log(article.summary)
         // console.log(article.link)
+        var articleContainer = $("<div>");
+        var link = $("<a>");
+        link.attr('href', article.link).addClass('article-link').attr('target', '_blank').text(article.title);
+        var button = $("<button>");
+        button.data('title', article.title).data('summary', article.summary).data('link', article.link);
+        button.addClass('saveBtn').text("Save Article");
+        articleContainer.append(link, button);
+
 
         var card = $("<div class='card'>");
         var cardHead = $("<div class='card-header'>").append(
-            $("<h3>").append(
-                $("<a class='article-link' target='_blank' rel='noopener noreferrer'>")
-                    .attr("href", article.link)
-                    .text(article.title),
-                $("<div><a id='saveBtn' class='btn btn-success save '>Save Article</a></div>")
-            )
+            // $("<h3>").append(
+            //     $("<a class='article-link' target='_blank' rel='noopener noreferrer'>")
+            //         .attr("href", article.link)
+            //         .text(article.title),
+            //     $("<div><a id='saveBtn' class='btn btn-success save '>Save Article</a></div>")
+            // )
+            articleContainer
         )
         var cardBody = $("")
 
@@ -69,8 +78,9 @@ $('#saveOnSave').on("click", function() {
 })
 
 
-$('#saveBtn').on("click", function() { 
+$('#addArticleInfoHere').on("click", '.saveBtn', function() { 
     console.log('saving article')
+   console.log('link to article',  $(this).data('link'));
     // articleToSave() 
 })
 

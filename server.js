@@ -5,11 +5,14 @@
 
 var express = require('express'); 
 var mongojs = require('mongojs');
+var mongoose = require('mongoose'); 
+// var exp = require('./public/index.js')
 
 
 //connecting mongodb:
-// mongodb+srv://<username>:danineubauer@cluster0-0yfrd.mongodb.net/test?retryWrites=true&w=majority 
-
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlesdb";
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 //initializing express: 
 var app = express(); 
@@ -17,14 +20,17 @@ var app = express();
 app.use(express.static("public"));
 //database config: 
 var databaseUrl = 'articlesdb'; 
-var db = mongojs(databaseUrl); 
-
+//var db = mongojs(databaseUrl); 
+var dv= mongoose.connection;
 db.on('error', function(error) { 
     console.log('DB error: ', error); 
-})
+});
+db.once("open", function(){
+    console.log("Mongoose connection sucessful");
+});
 
-require(".//routes/html-routes")(app)
-require(".//routes/api-routes.js")(app);
+require("./routes/html-routes")(app)
+require("./routes/api-routes.js")(app);
 
 app.listen(3000, function() { 
     console.log('app running on port 3000')
