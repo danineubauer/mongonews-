@@ -14,6 +14,12 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlesdb";
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
+if (process.env.MONGODB_URI) { 
+    mongoose.connect(databaseUrl);
+} else { 
+    mongoose.connect(databaseUrl)
+}
+
 //initializing express: 
 var app = express(); 
 
