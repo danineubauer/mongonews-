@@ -10,7 +10,8 @@ module.exports = function(app, db) {
         console.log("hello")
         db.Article.find({}, function(err, data) { 
             if (err) { 
-                console.log(err); 
+                console.log(err);
+                res.send(err) 
             }
             else { 
                 res.json(data)
