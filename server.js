@@ -6,19 +6,19 @@
 var express = require('express'); 
 var mongojs = require('mongojs');
 var mongoose = require('mongoose'); 
-// var exp = require('./public/index.js')
+// var exp = require('./public/indec x.js')
 
 
 //connecting mongodb:
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlesdb";
-mongoose.Promise = Promise;
+// mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
-if (process.env.MONGODB_URI) { 
-    mongoose.connect(databaseUrl);
-} else { 
-    mongoose.connect(databaseUrl)
-}
+// if (process.env.MONGODB_URI) { 
+//     mongoose.connect(databaseUrl);
+// } else { 
+//     mongoose.connect(databaseUrl)
+// }
 
 //initializing express: 
 var app = express(); 
@@ -26,8 +26,8 @@ var app = express();
 app.use(express.static("public"));
 //database config: 
 var databaseUrl = 'articlesdb'; 
-//var db = mongojs(databaseUrl); 
-var dv= mongoose.connection;
+// var db = mongojs(databaseUrl); 
+var db= mongoose.connection;
 db.on('error', function(error) { 
     console.log('DB error: ', error); 
 });
