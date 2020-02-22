@@ -4,11 +4,24 @@
 //mongodb:
 
 var express = require('express'); 
-var mongojs = require('mongojs');
+//var mongojs = require('mongojs');
 var mongoose = require('mongoose'); 
 // var exp = require('./public/indec x.js')
+console.log(__dirname)
+
+//SCRAPPING: 
+var cheerio = require("cheerio"); 
+var axios = require("axios"); 
+
+//Require all models
 
 
+var db = require("models");
+
+var PORT = process.env.PORT || 3000; 
+
+//initializing express: 
+var app = express(); 
 //connecting mongodb:
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlesdb";
 // mongoose.Promise = Promise;
@@ -20,14 +33,11 @@ mongoose.connect(MONGODB_URI);
 //     mongoose.connect(databaseUrl)
 // }
 
-//initializing express: 
-var app = express(); 
 
 app.use(express.static("public"));
 //database config: 
 var databaseUrl = 'articlesdb'; 
 // var db = mongojs(databaseUrl); 
-var db= mongoose.connection;
 db.on('error', function(error) { 
     console.log('DB error: ', error); 
 });
@@ -38,16 +48,12 @@ db.once("open", function(){
 require("./routes/html-routes")(app)
 require("./routes/api-routes.js")(app);
 
-var PORT = process.env.PORT || 3000; 
 
 app.listen(PORT, function() { 
-    console.log('app running on port 3000')
+    console.log('app running on port '+ PORT)
 })
 
 
-//SCRAPPING: 
-var cheerio = require("cheerio"); 
-var axios = require("axios"); 
 
 
 //Scrape articles to db: 
