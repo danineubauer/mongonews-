@@ -38,12 +38,12 @@ app.use(express.static("public"));
 //database config: 
 var databaseUrl = 'articlesdb'; 
 // var db = mongojs(databaseUrl); 
-db.on('error', function(error) { 
-    console.log('DB error: ', error); 
-});
-db.once("open", function(){
-    console.log("Mongoose connection sucessful");
-});
+// db.on('error', function(error) { 
+//     console.log('DB error: ', error); 
+// });
+// db.once("open", function(){
+//     console.log("Mongoose connection sucessful");
+// });
 
 require("./routes/html-routes")(app)
 require("./routes/api-routes.js")(app);

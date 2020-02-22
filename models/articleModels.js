@@ -23,11 +23,11 @@ var articleSchema = new Schema({
      trim: true, 
      required: true, 
      match: [/.+@.+\..+/, 'enter valid email']
- 
+   }
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var articlele = mongoose.model("articleMongoose", articleSchema);
+var Article = mongoose.model("Article", articleSchema);
 
 // Export the User model
-module.exports = articlele;
+module.exports = Article;
