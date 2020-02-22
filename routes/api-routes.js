@@ -2,11 +2,12 @@
 var mongojs = require('mongojs');
 var logger = require("morgan");
 var mongoose = require("mongoose");
-var databaseUrl = 'articlesdb'; 
+//var databaseUrl = 'articlesdb'; 
 
-module.exports = function(app) { 
+module.exports = function(app, db) { 
     app.get('/all', function(req, res) { 
         //grab all from database:
+        console.log("hello")
         db.Article.find({}, function(err, data) { 
             if (err) { 
                 console.log(err); 

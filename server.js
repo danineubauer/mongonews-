@@ -46,7 +46,7 @@ var databaseUrl = 'articlesdb';
 // });
 
 require("./routes/html-routes")(app)
-require("./routes/api-routes.js")(app);
+require("./routes/api-routes.js")(app, db);
 
 
 app.listen(PORT, function() { 
