@@ -47,7 +47,7 @@ function displayResults(articles) {
 $(".scrape").on("click", function() { 
     event.preventDefault();
     console.log('scraping data')
-    $.getJSON('/all', function(data) {
+    $.getJSON('/api/scrape', function(data) {
             displayResults(data)
  
     })

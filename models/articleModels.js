@@ -21,8 +21,7 @@ var articleSchema = new Schema({
      type: String, 
      unique: true, 
      trim: true, 
-     required: true, 
-     match: [/.+@.+\..+/, 'enter valid email']
+     required: true
    }
 });
 
