@@ -46,7 +46,9 @@ app.get('/scrape', function(req, res) {
             //creating new article using result object 
             db.Article.create(result)
                 .then(function(dbArticle) { 
-                    console.log(dbArticle); 
+                    console.log(i, result.title);
+                    console.log(i, result.link) 
+                    console.log('db', dbArticle)
                 })
                 .catch(function(err) { 
                     console.log(err); 
@@ -63,7 +65,7 @@ app.get('/articles', function(req, res) {
     db.Article.find({}) 
         .then(function(dbArticle) { 
             //if found, send to client: 
-            res.json(dbArticle); 
+            res.json(dbArticle);
         })
         .catch(function(err) { 
             res.json(err); 

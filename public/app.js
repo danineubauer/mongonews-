@@ -1,7 +1,14 @@
 
 //grab articles as a json: 
+// $.getJSON('/articles', function(data) { 
+//     for ( var i=0; i< data.length; i++) { 
+//         //display info on page:
+//         $("#addArticleInfoHere").append("<div data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</div>");
+//     }
+// })
 
 //when button is clicked:
+
 
 //when savenote clicked: 
 
@@ -9,112 +16,112 @@
 
 
 
-var articleInfo = $('#addArticleInfoHere')
+// var articleInfo = $('#addArticleInfoHere')
 
-function displayResults(articles) { 
-    console.log('displaying data')
-    articles.forEach (function(article) { 
-        // console.log(article.title)
-        // console.log(article.summary)
-        // console.log(article.link)
-        var articleContainer = $("<div>");
-        var link = $("<a>");
-        link.attr('href', article.link).addClass('article-link').attr('target', '_blank').text(article.title);
-        var button = $("<button>");
-        button.data('title', article.title).data('summary', article.summary).data('link', article.link);
-        button.addClass('saveBtn').text("Save Article");
-        articleContainer.append(link, button);
+// function displayResults(articles) { 
+//     console.log('displaying data')
+//     articles.forEach (function(article) { 
+//         // console.log(article.title)
+//         // console.log(article.summary)
+//         // console.log(article.link)
+//         var articleContainer = $("<div>");
+//         var link = $("<a>");
+//         link.attr('href', article.link).addClass('article-link').attr('target', '_blank').text(article.title);
+//         var button = $("<button>");
+//         button.data('title', article.title).data('summary', article.summary).data('link', article.link);
+//         button.addClass('saveBtn').text("Save Article");
+//         articleContainer.append(link, button);
 
 
-        var card = $("<div class='card'>");
-        var cardHead = $("<div class='card-header'>").append(
-            // $("<h3>").append(
-            //     $("<a class='article-link' target='_blank' rel='noopener noreferrer'>")
-            //         .attr("href", article.link)
-            //         .text(article.title),
-            //     $("<div><a id='saveBtn' class='btn btn-success save '>Save Article</a></div>")
-            // )
-            articleContainer
-        )
-        var cardBody = $("")
+//         var card = $("<div class='card'>");
+//         var cardHead = $("<div class='card-header'>").append(
+//             // $("<h3>").append(
+//             //     $("<a class='article-link' target='_blank' rel='noopener noreferrer'>")
+//             //         .attr("href", article.link)
+//             //         .text(article.title),
+//             //     $("<div><a id='saveBtn' class='btn btn-success save '>Save Article</a></div>")
+//             // )
+//             articleContainer
+//         )
+//         var cardBody = $("")
 
-        //$("<div class='card-body'>").text(article.summary);
+//         //$("<div class='card-body'>").text(article.summary);
 
-        card.append(cardHead, cardBody); 
+//         card.append(cardHead, cardBody); 
         
-        card.data("_id", article._id); 
+//         card.data("_id", article._id); 
 
-        // return card;
+//         // return card;
 
-        $('#addArticleInfoHere').append(card)
+//         $('#addArticleInfoHere').append(card)
 
-    })
-}
+//     })
+// }
 
-$(".scrape").on("click", function() { 
-    event.preventDefault();
-    console.log('scraping data')
-    $.getJSON('/all', function(data) {
-            displayResults(data)
+// $(".scrape").on("click", function() { 
+//     event.preventDefault();
+//     console.log('scraping data')
+//     $.getJSON('/all', function(data) {
+//             displayResults(data)
  
-    })
-});
+//     })
+// });
 
-$('#clear').on("click", function() {
-    event.preventDefault();
-    console.log('clearing data') 
-    $('#addArticleInfoHere').text('')
-})
+// $('#clear').on("click", function() {
+//     event.preventDefault();
+//     console.log('clearing data') 
+//     $('#addArticleInfoHere').text('')
+// })
 
-$('#homeOnHome').on("click", function() {
-    event.preventDefault();
-    console.log('You are on home') 
-})
+// $('#homeOnHome').on("click", function() {
+//     event.preventDefault();
+//     console.log('You are on home') 
+// })
 
-$('#saveOnHome').on("click", function() {
-    console.log('going to saved articles') 
-})
+// $('#saveOnHome').on("click", function() {
+//     console.log('going to saved articles') 
+// })
 
-$('#homeOnSave').on("click", function() {
-    console.log('going home') 
-})
+// $('#homeOnSave').on("click", function() {
+//     console.log('going home') 
+// })
 
-$('#saveOnSave').on("click", function() {
-    event.preventDefault(); 
-    console.log('you are on your saved articles page') 
-})
+// $('#saveOnSave').on("click", function() {
+//     event.preventDefault(); 
+//     console.log('you are on your saved articles page') 
+// })
 
 
-$('#addArticleInfoHere').on("click", '.saveBtn', function() { 
-    console.log('saving article')
-   console.log('link to article',  $(this).data('link'));
-    // articleToSave() 
-})
+// $('#addArticleInfoHere').on("click", '.saveBtn', function() { 
+//     console.log('saving article')
+//    console.log('link to article',  $(this).data('link'));
+//     // articleToSave() 
+// })
 
-//SAVE ARTICLE!!! 
-function articleToSave() { 
-    var saveThisArticle = $(this)
-        .parents('.card')
-        .data();
+// //SAVE ARTICLE!!! 
+// function articleToSave() { 
+//     var saveThisArticle = $(this)
+//         .parents('.card')
+//         .data();
 
-    $(this)
-        .parents(".card")
-        .remove();
+//     $(this)
+//         .parents(".card")
+//         .remove();
 
-    articleToSave.saved = true;
+//     articleToSave.saved = true;
 
-    console.log(articleToSave)
-    $.ajax({
-        method: "PUT", 
-        url: '/api/headlines/' + articleToSave._id,
-        data: articleToSave
-    }).then(function(data) { 
-        console.log(data)
-        if(data) { 
-            location.reload(); 
-        }
-    })
-}
+//     console.log(articleToSave)
+//     $.ajax({
+//         method: "PUT", 
+//         url: '/api/headlines/' + articleToSave._id,
+//         data: articleToSave
+//     }).then(function(data) { 
+//         console.log(data)
+//         if(data) { 
+//             location.reload(); 
+//         }
+//     })
+// }
 
 
 
