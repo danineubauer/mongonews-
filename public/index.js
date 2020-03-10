@@ -1,17 +1,155 @@
+//container for articles to save:
+const articleContainer = document.getElementById("addArticleInfoHere")
 
-//grab articles as a json: 
-// $.getJSON('/articles', function(data) { 
-//     for ( var i=0; i< data.length; i++) { 
-//         //display info on page:
-//         $("#addArticleInfoHere").append("<div data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</div>");
-//     }
+// grab articles as a json and display all: 
+$("#display").on("click", function () {
+    console.log('display articles clicked')
+
+    $.getJSON('/articles', function (data) {
+        console.log('rendering articles')
+        for (var i = 0; i < 10; i++) {
+            
+            //save - create button:
+            const buttonSave = document.createElement("button")
+            buttonSave.innerText = 'save';
+            $(buttonSave).attr('data-id', data[i]._id)
+            $(buttonSave).attr('id', 'save')
+
+            //addnote - create button: 
+            const buttonNote = document.createElement("button")
+            buttonNote.innerText = 'Add Note';
+            $(buttonNote).attr('data-id', data[i]._id)
+            $(buttonNote).attr('id', 'addNote')
+            
+            //article info:
+            $("#addArticleInfoHere").append("<hr><a data-id='" + data[i]._id + "' href='" + data[i].link + "'>" + data[i].title + "</a><br/>");
+            
+            function renderbutton(index) { 
+                buttonSave.addEventListener("click", function() { 
+                    console.log('save btn number ' + index + ' clicked')
+                })
+                buttonNote.addEventListener("click", function() { 
+                    console.log('add note ' + index + ' clicked')
+                })
+            }
+
+            renderbutton(i);
+
+            //render buttons:
+            // $('#addArticleInfoHere').append(buttonSave).append("<hr>")
+            articleContainer.appendChild(buttonSave)
+            articleContainer.appendChild(buttonNote)            
+        }
+    })
+})
+
+//save note 
+$(document).on("click", "#save", function() { 
+    console.log('save btn clicked')
+    var thisId = $(this).attr("data-id");
+
+    $.ajax({
+        method: "POST", 
+        url: "/articles/saved/" + thisId,
+        data: {
+            saved: true,
+        }
+    })
+    .then(function(data) { 
+        console.log('article saved')
+        if (data.saved) { 
+            alert('you have already saved this')
+        }
+        else { 
+            console.log('not')
+        }
+    })
+
+})
+
+
+// When note is clicked: 
+$(document).on("click", '#addNote', function() {
+    console.log('addNote clicked')
+    $("#notes").empty();
+
+    var thisId = $(this).attr("data-id");
+  
+    $.ajax({
+      method: "GET",
+      url: "/articles/" + thisId
+    })
+      .then(function(data) {
+        console.log(data);
+        $("#notes").append("<h2>" + data.title + "</h2>");
+        $("#notes").append("<input id='titleinput' name='title' >");
+        $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+  
+        // If there's a note in the article
+        if (data.note) {
+            console.log("there's a note")
+          // Place the title of the note in the title input
+          $("#titleinput").val(data.note.title);
+          console.log(data.note.title)
+          // Place the body of the note in the body textarea
+          $("#bodyinput").val(data.note.body);
+          console.log(data.note.body)
+        }
+      });
+  });
+
+  
+// When you click the savenote button
+$(document).on("click", "#savenote", function() {
+    console.log('post data')
+    var thisId = $(this).attr("data-id");
+  
+    $.ajax({
+      method: "POST",
+      url: "/articles/" + thisId,
+      data: {
+        title: $("#titleinput").val(),
+        body: $("#bodyinput").val()
+      }
+    })
+      // With that done
+      .then(function(data) {
+        console.log(data);
+        $("#notes").empty();
+      });
+  
+    // Also, remove the values entered in the input and textarea for note entry
+    $("#titleinput").val("");
+    $("#bodyinput").val("");
+  });
+  
+
+// $(document).on('click', '#save', function() { 
+//     console.log('save clicked')
+//     //grab id:
+//     var thisId = $(this).attr('data-id'); 
+
+//     //ajax call for article 
+//     $.ajax({ 
+//         method: "POST", 
+//         url: "/articles/" + thisId,
+//         data: { 
+//             saved: "true"
+//         }
+//     })
+//         .then(function(data) { 
+//             console.log(data.saved)
+//             console.log(data); 
+//         })
 // })
 
-//when button is clicked:
 
 
-//when savenote clicked: 
 
+//function when article is saved: 
+
+//
 
 
 
@@ -48,7 +186,7 @@
 //         //$("<div class='card-body'>").text(article.summary);
 
 //         card.append(cardHead, cardBody); 
-        
+
 //         card.data("_id", article._id); 
 
 //         // return card;
@@ -63,7 +201,7 @@
 //     console.log('scraping data')
 //     $.getJSON('/all', function(data) {
 //             displayResults(data)
- 
+
 //     })
 // });
 
@@ -130,7 +268,7 @@
 //     //article-box: 
 
 //     var articleBox = $('#article-box'); 
-    
+
 //     //button actions: 
 //     $(document).on("click", ".scrape", scrapeArticlesHandle); 
 //     $(document).on("click", "#clear", clearArticlesHandle); 
@@ -138,7 +276,7 @@
 
 //     function scrapeArticlesHandle(articles) {
 //         console.log('scrape clicked') 
-  
+
 //         db.articles.forEach(function(article) {
 //             var div = $('<div>').append(
 //                 $("<div>").text(article.title),
@@ -147,7 +285,7 @@
 //             );
 //             $("#addArticleInfoHere").append(div)
 //         });
-        
+
 //         //appending: 
 //     };
 
@@ -168,16 +306,16 @@
     //scrape articles: 
     // axios.get("https://www.theguardian.com/us")
     // .then(function(response) { 
-       
+
     //     var $ = cheerio.load(response.data); 
 
     //     var results = []; 
 
     //     $('.fc-item__content').each(function(i, element) { 
-            
+
     //         //headline:
     //         var title = $(element).text().replace(/\n/g, ''); 
-            
+
     //         //summary: 
     //         var summary = $(element).parent().text().replace(/\n/g, '');
     //         //url:

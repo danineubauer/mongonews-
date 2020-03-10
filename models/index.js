@@ -1,5 +1,6 @@
 //exporting opjects: 
 module.exports = {
   Article: require("./Article"),
-  Note: require("./Note")
+  Note: require("./Note"),
+  Saved: require("./Saved")
 };

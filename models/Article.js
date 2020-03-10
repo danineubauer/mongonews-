@@ -13,6 +13,10 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  Saved: { 
+    type: Schema.Types.ObjectId, 
+    ref: "Saved", 
+  },
   // create object `note` that stores ID 
     // ref property links the ObjectId to the Note model
   note: {

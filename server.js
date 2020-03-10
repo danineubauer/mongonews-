@@ -21,6 +21,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json()); 
 app.use(express.static('public')); 
 
+
 mongoose.connect('mongodb://localhost/articles', {useNewUrlParser: true })
 
 //Get route for scraping: 
@@ -41,7 +42,6 @@ app.get('/scrape', function(req, res) {
 
             result.title = $(element).text().replace(/\n/g, ''); 
             result.link = $(element).children().children().children().attr("href");
-
 
             //creating new article using result object 
             db.Article.create(result)
@@ -72,10 +72,35 @@ app.get('/articles', function(req, res) {
         }); 
 }); 
 
+//getting all the notes: 
+app.get('/notes', function(req, res) { 
+    db.Note.find({  })
+    .then(function(dbArticle) { 
+        //if found: 
+        res.json(dbArticle); 
+    })
+    .catch(function(err) { 
+        res.json(err); 
+    })
+})
+
+//getting all the notes: 
+app.get('/saved', function(req, res) { 
+    db.Saved.find({  })
+    .then(function(dbArticle) { 
+        //if found: 
+        res.json(dbArticle); 
+    })
+    .catch(function(err) { 
+        res.json(err); 
+    })
+})
+ 
+
 //grabbing specific Article by id to add a note:
 app.get('/articles/:id', function(req, res) { 
     db.Article.findOne({ _id: req.params.id})
-        .populate('note')
+        .populate("note")
         .then(function(dbArticle) { 
             //if found: 
             res.json(dbArticle); 
@@ -85,19 +110,57 @@ app.get('/articles/:id', function(req, res) {
         })
 })
 
-//save/update Article's note: 
-app.post('/articles/:id', function(req, res) { 
+//SAVING:
+// Route for saving/updating an Article's associated Note
+app.post("/articles/:id", function(req, res) {
     db.Note.create(req.body)
-        .then(function(dbNote) { 
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, {note: dbNote._id }, {new: true});
-        })
+      .then(function(dbNote) {
+        // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+        // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+        // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+        return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+      })
+      .then(function(dbArticle) {
+        // If we were able to successfully update an Article, send it back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
+
+  //grabbing specific Article by id to add a note:
+app.get('/articles/saved/:id', function(req, res) { 
+    db.Article.findOne({ _id: req.params.id})
+        .populate("saved")
         .then(function(dbArticle) { 
+            //if found: 
             res.json(dbArticle); 
         })
         .catch(function(err) { 
-            res.json(err)
-        }); 
-}); 
+            res.json(err); 
+        })
+})
+
+//SAVED ARTICLE:
+  app.post("/articles/saved/:id", function(req, res) {
+    db.Saved.create(req.body)
+      .then(function(dbSave) {
+        // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+        // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+        // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+        return db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: dbNote._id }, { new: true });
+      })
+      .then(function(dbArticle) {
+        // If we were able to successfully update an Article, send it back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
  
 // Start the server
 app.listen(PORT, function() {
