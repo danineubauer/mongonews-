@@ -13,12 +13,14 @@ $("#display").on("click", function () {
             const buttonSave = document.createElement("button")
             buttonSave.innerText = 'save';
             $(buttonSave).attr('data-id', data[i]._id)
+            $(buttonSave).addClass('btn')
             $(buttonSave).attr('id', 'save')
 
             //addnote - create button: 
             const buttonNote = document.createElement("button")
             buttonNote.innerText = 'Add Note';
             $(buttonNote).attr('data-id', data[i]._id)
+            $(buttonNote).addClass('btn')
             $(buttonNote).attr('id', 'addNote')
             
             //article info:
@@ -88,7 +90,7 @@ $(document).on("click", '#addNote', function() {
         $("#notes").append("<h2>" + data.title + "</h2>");
         $("#notes").append("<input id='titleinput' name='title' >");
         $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        $("#notes").append("<button class='btn' data-id='" + data._id + "' id='savenote'>Save Note</button>");
   
         // If there's a note in the article
         if (data.note) {

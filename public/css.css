@@ -1,4 +1,7 @@
-
+button { 
+    margin: 7px;
+    font-size: 10px;
+}
 body { 
     background: url(news1.jpg) no-repeat center center fixed;
     -moz-background-size: cover;
