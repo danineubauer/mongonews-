@@ -62,7 +62,7 @@ app.get('/scrape', function(req, res) {
 //get articles from db: 
 app.get('/articles', function(req, res) { 
     //grab every doc in Article collection:
-    db.Article.find({}) 
+    db.Article.find({}).populate('note').populate('Saved')
         .then(function(dbArticle) { 
             //if found, send to client: 
             res.json(dbArticle);
@@ -147,7 +147,7 @@ app.get('/articles/saved/:id', function(req, res) {
   app.post("/articles/saved/:id", function(req, res) {
     db.Saved.create(req.body)
       .then(function(dbSave) {
-        return db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: dbNote._id }, { new: true });
+        return db.Article.findOneAndUpdate({ _id: req.params.id }, { Saved: dbSave._id },  { new: true });
       })
       .then(function(dbArticle) {
         res.json(dbArticle);

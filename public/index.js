@@ -1,6 +1,13 @@
 //container for articles to save:
 const articleContainer = document.getElementById("addArticleInfoHere")
 
+$('#scrape').on('click', function() {
+  $.get('/scrape', function() { 
+    console.log('scrape btn clicked')
+  })
+  alert('You have scraped the articles! Now click display articles to see them.')
+})
+
 // grab articles as a json and display all: 
 $("#display").on("click", function () {
     console.log('display articles clicked')
@@ -49,12 +56,14 @@ $("#display").on("click", function () {
 $(document).on("click", "#save", function() { 
     console.log('save btn clicked')
     var thisId = $(this).attr("data-id");
+    console.log(thisId)
 
     $.ajax({
         method: "POST", 
         url: "/articles/saved/" + thisId,
         data: {
-            saved: true,
+            isSaved: true,
+            articleId: thisId
         }
     })
     .then(function(data) { 
@@ -63,7 +72,7 @@ $(document).on("click", "#save", function() {
         // *************************************
         //saves over and over again 
         //************************************ */
-        if (data.saved) { 
+        if (data.isSaved) { 
             alert('you have already saved this')
         }
         else { 
